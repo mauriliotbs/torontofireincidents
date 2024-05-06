@@ -80,8 +80,8 @@ class DataCleaner:
             df_cleaned.loc[:, col] = df_cleaned[col].astype('string')  # Then convert to string
 
         # Remove outliers based on response_variable, Estimated_Dollar_Loss. using z-score method, elimate rows 3 standard deviations from the mean.
-        #z_scores = df_cleaned['Estimated_Dollar_Loss'].apply(lambda x: (x - df_cleaned['Estimated_Dollar_Loss'].mean()) / df_cleaned['Estimated_Dollar_Loss'].std())
-        #df_cleaned = df_cleaned[(z_scores < 3) & (z_scores > -3)]  # Adjust threshold as needed
+        z_scores = df_cleaned['Estimated_Dollar_Loss'].apply(lambda x: (x - df_cleaned['Estimated_Dollar_Loss'].mean()) / df_cleaned['Estimated_Dollar_Loss'].std())
+        df_cleaned = df_cleaned[(z_scores < 3) & (z_scores > -3)]  # Adjust threshold as needed
 
         # Replace all NAType values with NaN, or skLearn won't recognize it.
         df_cleaned.replace('NAType', np.nan)
