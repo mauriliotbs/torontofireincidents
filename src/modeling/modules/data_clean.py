@@ -59,11 +59,6 @@ class DataCleaner:
         # Remove columns from the DataFrame
         df.drop(columns=DataCleaner.COLUMNS_TO_REMOVE, inplace=True)
 
-        # # Remove non-numeric characters -- Should be encoded as part of the pipeline!
-        # df_cleaned = df[:]
-        # for col in DataCleaner.COLUMNS_TO_KEEP:
-        #     df_cleaned[col] = df_cleaned[col].replace('[^0-9]', '', regex=True)
-
         # Replace empty strings with pd.NA (NaN)
         df_cleaned = df.mask(df == '', pd.NA)
 
@@ -81,7 +76,7 @@ class DataCleaner:
 
         # Remove outliers based on response_variable, Estimated_Dollar_Loss. using z-score method, elimate rows 3 standard deviations from the mean.
         z_scores = df_cleaned['Estimated_Dollar_Loss'].apply(lambda x: (x - df_cleaned['Estimated_Dollar_Loss'].mean()) / df_cleaned['Estimated_Dollar_Loss'].std())
-        df_cleaned = df_cleaned[(z_scores < 3) & (z_scores > -3)]  # Adjust threshold as needed
+        df_cleaned = df_cleaned[(z_scores < 3) & (z_scores > -3)]  # Can adjust threshold as needed
 
         # Replace all NAType values with NaN, or skLearn won't recognize it.
         df_cleaned.replace('NAType', np.nan)
