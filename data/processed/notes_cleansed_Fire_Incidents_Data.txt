@@ -1,0 +1,8 @@
+Numerical cols (All of them are integer values):
+Civilian_Casualties
+Count_of_Persons_Rescued
+Estimated_Dollar_Loss
+Estimated_Number_Of_Persons_Displaced
+Number_of_responding_apparatus
+Number_of_responding_personnel
+TFS_Firefighter_Casualties
