@@ -31,28 +31,6 @@ class DataCleaner:
     ]
 
     @staticmethod
-    def createPipeline(df):
-        categorical_column_imputer = Pipeline(steps=[
-            ('imputer0', KNNImputer())
-        ])
-        # Get the categorical columns by index numbers
-        c_idx = [df.columns.get_loc(item) for item in DataCleaner.CATEGORICAL_COLUMNS_KEPT]
-
-        missing_value_imputer = ColumnTransformer(transformers=[
-                                                        ('imputer', categorical_column_imputer, c_idx)
-                                                    ])
-
-        # Feed the categorical columns into the simple imputer pipeline
-        missing_value_imputer = ColumnTransformer(transformers=[
-            ('categorical_imputer', categorical_column_imputer, c_idx),
-            #('numerical_imputer', categorical_column_imputer, c_idx)
-            ])
-        
-
-        
-        return missing_value_imputer
-
-    @staticmethod
     def cleanse_dataframe(df):
         
         pd.set_option('display.max_columns', None)
@@ -67,6 +45,7 @@ class DataCleaner:
             df_cleaned[col] = df_cleaned[col].replace('[^0-9]', '', regex=True)
 
         # Replace empty strings with pd.NA (NaN)
+        # If we were to replace with np.nan, simpleImputer will return TypeError: boolean value of NA is ambiguous.
         df_cleaned = df.mask(df == '', pd.NA)
 
         # Removing rows with no values at all according to column name: Area_of_Origin
@@ -85,7 +64,8 @@ class DataCleaner:
         z_scores = df_cleaned['Estimated_Dollar_Loss'].apply(lambda x: (x - df_cleaned['Estimated_Dollar_Loss'].mean()) / df_cleaned['Estimated_Dollar_Loss'].std())
         df_cleaned = df_cleaned[(z_scores < 3) & (z_scores > -3)]  # Can adjust threshold as needed
 
-        # Replace all NAType values with NaN, or skLearn won't recognize it.
+        # Replace all NAType values with np.nan, else KNNImputer and other scalers won't recognize it.
+        # Only numerical columns will have this value.
         df_cleaned.replace('NAType', np.nan)
 
         return df_cleaned
