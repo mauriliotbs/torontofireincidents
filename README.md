@@ -1,5 +1,10 @@
 # Toronto Fire Incidents Project Repository Structure
 The final report can be read here: https://github.com/RyLiy/TorontoFireIncidents/blob/main/src/modeling/main.ipynb
+
+All project dependencies are listed in requirements.txt.
+
+Before running any notebook or file, execute `pip install-r requirements.txt`, to ensure you have all project dependencies installed.
+
 ## /src
 Directory containing the source code for the project.
 - **/modeling:** Scripts or notebooks for model training, evaluation, and hyperparameter tuning.
