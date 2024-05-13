@@ -1,5 +1,5 @@
 # Toronto Fire Incidents Project Repository Structure
-
+The final report can be read here: https://github.com/RyLiy/TorontoFireIncidents/blob/main/src/modeling/main.ipynb
 ## /src
 Directory containing the source code for the project.
 - **/modeling:** Scripts or notebooks for model training, evaluation, and hyperparameter tuning.
