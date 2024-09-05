@@ -1,5 +1,5 @@
 # Toronto Fire Incidents Project Repository Structure
-The final report can be read here: https://github.com/RyLiy/TorontoFireIncidents/blob/main/src/modeling/main.ipynb
+The final report can be read here: https://github.com/mauriliotbs/torontofireincidents/blob/main/src/modeling/main.ipynb
 
 All project dependencies are listed in requirements.txt.
 
